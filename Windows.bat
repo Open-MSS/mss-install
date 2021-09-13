@@ -40,6 +40,11 @@ if exist %b% if "%3" neq "b" if "%3" neq "c" if "%3" neq "d" call "cmd /c" %b% "
 if exist %c% if "%3" neq "c" if "%3" neq "d" call "cmd /c" %c% "& %script:"=% %automatic% %retry% c" & exit 0
 if exist %d% if "%3" neq "d" call "cmd /c" %d% "& %script:"=% %automatic% %retry% d" & exit 0
 
+wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
+for /f "delims= " %%i in ('type space.txt') do set space=%%i
+del space.txt
+set "spaceMB=%space:~,-6%"
+if %spaceMB% LSS 3221 (echo You need at least 3GB of space to install conda and MSS, aborting. & pause & exit /B 1)
 echo Downloading miniconda3...
 if "%retry%"=="retry" (echo Conda still not found after installation, aborting & pause & exit /B 1)
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OSBIT=32BIT || set OSBIT=64BIT
@@ -52,6 +57,11 @@ start /i /b %script% %automatic% retry & exit 0
 
 :condainstalled
 echo Conda installed
+wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
+for /f "delims= " %%i in ('type space.txt') do set space=%%i
+del space.txt
+set "spaceMB=%space:~,-6%"
+if %spaceMB% LSS 2899 (echo You need at least 2.7GB of space to install MSS, aborting. & pause & exit /B 1)
 call conda.bat config --add channels conda-forge
 call conda.bat activate mssenv
 if not %errorlevel% == 0 (
