@@ -27,6 +27,7 @@ automatic=$(([ "$1" = "a" ] || [ "$1" = "-a" ]) && echo "Yes" || echo "No")
 echo "Checking Conda installation..."
 condaInstalled="Yes"
 unameOS=$([ "$(uname -s)" == "Darwin" ] && echo "MacOSX" || echo "Linux")
+if [ $(uname -m) == "arm64" ] && [ $unameOS == "MacOSX" ]; then echo "Aborting. Mac ARM M1 currently not supported." && exit 1; fi
 dfCommand=$([ $unameOS = "MacOSX" ] && echo "df -g ." || echo "df -BG .")
 completeSize=3
 mssSize=2.7
