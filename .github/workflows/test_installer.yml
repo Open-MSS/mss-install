@@ -1,0 +1,75 @@
+name: Check Installer
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  install-linux:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install conda+MSS
+        run: |
+          sudo rm -rf $(which conda)
+          cd $GITHUB_WORKSPACE
+          chmod +x LinuxMac.sh
+          ./LinuxMac.sh -a
+      - name: Test MSS installed
+        run: |
+          . /home/runner/miniconda3/bin/activate mssenv
+          mss --version | grep "Mission Support System (mss)"
+    
+  install-macos:
+    runs-on: macos-latest
+    
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install conda+MSS
+        run: |
+          sudo rm -rf $(which conda)
+          cd $GITHUB_WORKSPACE
+          chmod +x LinuxMac.sh
+          ./LinuxMac.sh -a
+      - name: Test MSS installed
+        run: |
+          . /Users/runner/miniconda3/bin/activate mssenv
+          mss --version | grep "Mission Support System (mss)"
+          
+          
+  install-windows:
+    runs-on: windows-latest
+    
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install conda+MSS (1/2) (needs new shell to recognise conda)
+        run: |
+          cd %GITHUB_WORKSPACE%
+          Windows.bat -a
+      - name: Install conda+MSS (2/2)
+        run: |
+          cd %GITHUB_WORKSPACE%
+          set PATH=%PATH%;%USERPROFILE%\miniconda3\condabin
+          Windows.bat -a
+      - name: Test MSS installed
+        run: |
+          set PATH=%PATH%;%USERPROFILE%\miniconda3\condabin
+          call conda.bat activate mssenv
+          mss --version | findstr /i /c:"Mission Support System (mss)"
