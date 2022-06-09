@@ -25,7 +25,7 @@ jobs:
       - name: Test MSS installed
         run: |
           . /home/runner/miniconda3/bin/activate mssenv
-          mss --version | grep "Mission Support System (mss)"
+          msui --version | grep "Mission Support System (MSS)"
     
   install-macos:
     runs-on: macos-latest
@@ -46,7 +46,7 @@ jobs:
       - name: Test MSS installed
         run: |
           . /Users/runner/miniconda3/bin/activate mssenv
-          mss --version | grep "Mission Support System (mss)"
+          msui --version | grep "Mission Support System (MSS)"
           
           
   install-windows:
@@ -72,4 +72,4 @@ jobs:
         run: |
           set PATH=%PATH%;%USERPROFILE%\miniconda3\condabin
           call conda.bat activate mssenv
-          mss --version | findstr /i /c:"Mission Support System (mss)"
+          msui --version | findstr /i /c:"Mission Support System (MSS)"

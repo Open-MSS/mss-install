@@ -3,10 +3,10 @@
 #
 #   This script tries to install conda and/or mss on a Linux or MacOS system automatically.
 #
-#   This file is part of mss.
+#   This file is part of MSS.
 #
 #   :copyright: Copyright 2021 May Baer
-#   :copyright: Copyright 2021 by the mss team, see AUTHORS.
+#   :copyright: Copyright 2021-2022 by the MSS team, see AUTHORS.
 #   :license: APACHE-2.0, see LICENSE for details.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,12 +61,12 @@ conda activate mssenv || {
     conda activate mssenv || { echo "Environment not found, aborting"; exit 1; }
 }
 
-echo "Installing mss..."
+echo "Installing MSS..."
 mamba install mss python -y
 mamba list -f mss | grep "conda-forge" || { echo "MSS was not successfully installed, aborting"; exit 1; }
 
 echo "Done!"
 if [[ $condaInstalled = "No" ]]; then echo "Please restart your shell for changes to take effect! 'exec $SHELL'"; fi
-echo "To start mss,"
+echo "To start msui from the MSS Software,"
 echo "1. Activate your conda environment with this command: 'conda activate mssenv'"
-echo "2. Start mss with this command: 'mss'"
+echo "2. Start msui with this command: 'msui'"
