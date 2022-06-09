@@ -3,10 +3,10 @@
 ::
 ::    This script tries to install conda and/or mss on a Windows system automatically.
 ::
-::    This file is part of mss.
+::    This file is part of MSS.
 ::
 ::    :copyright: Copyright 2021 May Baer
-::    :copyright: Copyright 2021 by the mss team, see AUTHORS.
+::    :copyright: Copyright 2021-2022 by the MSS team, see AUTHORS.
 ::    :license: APACHE-2.0, see LICENSE for details.
 ::
 ::    Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,13 +72,13 @@ if not %errorlevel% == 0 (
 )
 
 :envexists
-echo Installing mss...
+echo Installing MSS...
 call mamba install mss python -y
 call mamba list -f mss| findstr /i /e "conda-forge"
 if not %errorlevel% == 0 (echo MSS was not successfully installed, aborting & pause & exit /B 1)
 
-echo Done! To start mss: Press the Windows button, type in "mss" and press enter.
+echo Done! To start msui from the MSS Software: Press the Windows button, type in "msui" and press enter.
 echo Alternatively:
 echo 1. Activate your conda environment with this command: "conda activate mssenv"
-echo 2. Start mss with this command: "mss"
+echo 2. Start msui with this command: "msui"
 pause
