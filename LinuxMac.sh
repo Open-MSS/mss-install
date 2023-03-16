@@ -73,7 +73,7 @@ which mamba || { echo "Downloading mambaforge..." &&
 }
 
 echo "mamba installed"
-    freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') &&
+    freespace=$(df -g --output='avail' . | tail -1 | awk '{print $1+0}') &&
     if (($freespace < $mssSize)); then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
