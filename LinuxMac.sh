@@ -80,7 +80,7 @@ which mamba || { echo "Downloading mambaforge..." &&
 echo "mamba installed"
     if [[ $unameOS = "MacOSX" ]]
        then
-          freespace=$(df -g --output='avail' . | tail -1 | awk '{print $4+0}') 
+          freespace=$(df -g  . | tail -1 | awk '{print $4+0}') 
        else
           freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') 
     fi &&
