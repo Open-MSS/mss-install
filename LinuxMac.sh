@@ -64,6 +64,8 @@ which mamba || { echo "Downloading mambaforge..." &&
       if [[ $automatic  = "No" ]]; then script -q -c "./mambaforge-installer.sh -u" output.txt; else script -q -c "./mambaforge-installer.sh -u -b -p ~/mambaforge" output.txt; fi
    fi && cat output.txt &&
    location=$(< output.txt grep "PREFIX=" | tr -d "[:cntrl:]" | sed -e "s/.*PREFIX=//g") && rm output.txt &&
+   echo "$location"
+   ls -l "$location/etc/profile.d/"
    if [[ "$location" != "" ]]; then . "$location/etc/profile.d/mamba.sh"; else . "$HOME/.bashrc"; fi && mamba init &&
    if [[ "$SHELL" = *zsh ]]; then conda init zsh; fi && rm mambaforge-installer.sh &&
    which mamba || { echo "mamba still not found, please restart your console and try again"; exit 1; }
