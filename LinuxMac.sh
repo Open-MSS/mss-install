@@ -83,5 +83,5 @@ echo "mamba installed"
  echo "To start msui from the MSS Software,"
  echo "1. Activate your mamba environment with this command: 'mamba activate mssenv'"
  echo "2. Start msui with this command: 'msui'"
- exit 1;
+ exit 0;
 
