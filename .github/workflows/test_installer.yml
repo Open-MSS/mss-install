@@ -25,7 +25,7 @@ jobs:
       - name: Test MSS installed
         run: |
           sudo /root/mambaforge/bin/activate mssenv
-          msui --version | grep "Mission Support System (MSS)"
+          sudo msui --version | grep "Mission Support System (MSS)"
     
   install-macos:
     runs-on: macos-latest
