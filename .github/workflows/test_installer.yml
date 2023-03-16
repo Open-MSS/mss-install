@@ -11,13 +11,14 @@ jobs:
     
     defaults:
       run:
-        shell: bash --login -c
+        shell: bash
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Install mambaforge+MSS
         run: |
+          bash --login
           sudo rm -rf $(which mamba)
           cd $GITHUB_WORKSPACE
           chmod +x LinuxMac.sh
