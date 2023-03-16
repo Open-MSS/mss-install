@@ -52,8 +52,7 @@ sleep 2
 # neither conda nor mamba -> mambaforge
 which mamba || { echo "Downloading mambaforge..." &&
 #   { awk -v n1="$($dfCommand | tail -1 | awk '{print $4+0}')" "BEGIN {exit !(n1 < $completeSize)}" && echo "Aborting. You need at least $completeSize GB of space to install mamba and MSS" && exit 0; }
-   curl "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" --output mambaforge-installer.sh &&
-   echo "downloaded from https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" &&
+   curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" --output mambaforge-installer.sh &&
    ls -l mambaforge-installer.sh &&
    echo "Installing mambaforge..." &&
    chmod +x mambaforge-installer.sh &&
