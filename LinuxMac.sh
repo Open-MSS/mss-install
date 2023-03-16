@@ -51,7 +51,10 @@ sleep 2
 
 # neither conda nor mamba -> mambaforge
 which mamba || { echo "Downloading mambaforge..." &&
-#   { awk -v n1="$($dfCommand | tail -1 | awk '{print $4+0}')" "BEGIN {exit !(n1 < $completeSize)}" && echo "Aborting. You need at least $completeSize GB of space to install mamba and MSS" && exit 0; }
+    freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') &&
+    if (($freespace < $completeSize)); then
+	    echo "Aborting. You need at least $completeSize GB of space to install mamba and MSS" && exit 1;
+    fi &&
    curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" --output mambaforge-installer.sh &&
    ls -l mambaforge-installer.sh &&
    echo "Installing mambaforge..." &&
@@ -70,7 +73,10 @@ which mamba || { echo "Downloading mambaforge..." &&
 }
 
 echo "mamba installed"
-#{ awk -v n1="$($dfCommand | tail -1 | awk '{print $4+0}')" "BEGIN {exit !(n1 < $mssSize)}" && echo "Aborting. You need at least $mssSize GB of space to install MSS" && exit 0; } ;
+    freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') &&
+    if (($freespace < $mssSize)); then
+            echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
+    fi &&
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
     mamba create -n mssenv -y &&
