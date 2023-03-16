@@ -24,7 +24,7 @@ jobs:
           sudo ./LinuxMac.sh -a
       - name: Test MSS installed
         run: |
-          mamba activate mssenv
+          /root/mambaforge/bin/mamba activate mssenv
           msui --version | grep "Mission Support System (MSS)"
     
   install-macos:
