@@ -57,31 +57,18 @@ wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
 for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
-if %spaceMB% LSS 6123 (echo You need at least 3GB of space to install mamba and MSS, aborting. & pause & exit /B 1)
+if %spaceMB% LSS 3221 (echo You need at least 3GB of space to install mamba and MSS, aborting. & pause & exit /B 1)
 echo Downloading mambaforge...
 echo =========================
 
 if "%retry%"=="retry" (echo Mamba still not found after installation, aborting & pause & exit /B 1)
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OSBIT=32BIT || set OSBIT=64BIT
-:: if %OSBIT%==64BIT curl -L0 https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe
-if %OSBIT%==64BIT curl -L0  https://github.com/conda-forge/miniforge/releases/download/22.9.0-3/Mambaforge-22.9.0-3-Windows-x86_64.exe --output mambaforge-installer.exe
+if %OSBIT%==64BIT curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe
 echo Installing mambaforge (Enable: Register Mambaforge as my default Python and add it to the path
 echo ==============================================================================================
-echo "is the installer downloaded where we are?"
-dir mambaforge-installer.exe
 
-echo "calling with path"
-D:\a\mss-install\mss-install\mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1"
-echo "redoing"
-if "%automatic%"=="a" (start /wait D:\a\mss-install\mss-install\mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1") else (start /wait mambaforge-installer.exe)
-
-dir C:\Users\runneradmin\AppData\Local\
-:: if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1") else (start /wait mambaforge-installer.exe)
+if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1") else (start /wait mambaforge-installer.exe)
 del "mambaforge-installer.exe"
-echo "check mambaforge installed"
-dir %USERPROFILE%\mambaforge
-dir %USERPROFILE%
-echo %PATH%
 
 start /i /b %script% %automatic% retry & exit 0
 
@@ -93,7 +80,7 @@ wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
 for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
-if %spaceMB% LSS 2300 (echo You need at least 2.7GB of space to install MSS, aborting. & pause & exit /B 1)
+if %spaceMB% LSS 2899 (echo You need at least 2.7GB of space to install MSS, aborting. & pause & exit /B 1)
 call mamba.bat activate mssenv
 if not %errorlevel% == 0 (
     echo mssenv not found, creating...
