@@ -67,7 +67,7 @@ if %OSBIT%==64BIT curl -L0 https://github.com/conda-forge/miniforge/releases/lat
 echo Installing mambaforge (Enable: Register Mambaforge as my default Python ...)
 echo ============================================================================
 
-if "%automatic%"=="a" (start /wait mambaforge-installer.exe /S /D=%USERPROFILE%\mambaforge /RegisterPython=1) else (start /wait mambaforge-installer.exe)
+if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList "/S /D=%USERPROFILE%\mambaforge /RegisterPython=1") else (start /wait mambaforge-installer.exe)
 del "mambaforge-installer.exe"
 start /i /b %script% %automatic% retry & exit 0
 
