@@ -27,7 +27,6 @@ echo "Checking Mamba installation..."
 unameOS=$([ "$(uname -s)" == "Darwin" ] && echo "MacOSX" || echo "Linux")
 architectureOS="$(uname -m)"
 if [ "$(uname -m)" == "arm64" ] && [ "$unameOS" == "MacOSX" ]; then echo "Aborting. Mac ARM M1 currently not supported." && exit 1; fi
-dfCommand=$([ "$unameOS" = "MacOSX" ] && echo "df -g ." || echo "df -BG .")
 completeSize=3
 mssSize=2.7
 
@@ -36,7 +35,11 @@ We recommend to start from Mambaforge for the MSS installation.
 
 Mambaforge comes with the popular conda-forge channel preconfigured, but you can modify the configuration to use any channel you like.
 
-The next steps are to check for an existing Mambaforge Installation or install MambaForge then Create a mssenv then Install MSS.
+The next steps are to check for an existing Mambaforge Installation.
+
+If possible we try to:
+
+install MambaForge then Create a mssenv then Install MSS.
 "
 
 CHECKCONDA=$(which conda)
@@ -57,7 +60,7 @@ which mamba || { echo "Downloading mambaforge..." &&
        else
           freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') 
     fi &&
-    if (($freespace < $completeSize)); then
+    if ($freespace < $completeSize); then
 	    echo "Aborting. You need at least $completeSize GB of space to install mamba and MSS" && exit 1;
     fi &&
    curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" --output mambaforge-installer.sh &&
@@ -84,7 +87,7 @@ echo "mamba installed"
        else
           freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') 
     fi &&
-    if (($freespace < $mssSize)); then
+    if ($freespace < $mssSize); then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
     mamba activate mssenv || {
