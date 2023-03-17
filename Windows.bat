@@ -57,7 +57,7 @@ wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
 for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
-if %spaceMB% LSS 3221 (echo You need at least 3GB of space to install mamba and MSS, aborting. & pause & exit /B 1)
+if %spaceMB% LSS 6123 (echo You need at least 3GB of space to install mamba and MSS, aborting. & pause & exit /B 1)
 echo Downloading mambaforge...
 echo =========================
 
@@ -79,7 +79,7 @@ wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
 for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
-if %spaceMB% LSS 2899 (echo You need at least 2.7GB of space to install MSS, aborting. & pause & exit /B 1)
+if %spaceMB% LSS 2300 (echo You need at least 2.7GB of space to install MSS, aborting. & pause & exit /B 1)
 call mamba.bat activate mssenv
 if not %errorlevel% == 0 (
     echo mssenv not found, creating...
