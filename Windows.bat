@@ -70,8 +70,10 @@ echo ===========================================================================
 echo "is the installer downloaded where we are?"
 dir mambaforge-installer.exe
 
-
-mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1"
+echo "calling with path"
+D:\a\mss-install\mss-install\mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1"
+echo "redoing"
+if "%automatic%"=="a" (start /wait D:\a\mss-install\mss-install\mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1") else (start /wait mambaforge-installer.exe)
 
 dir C:\Users\runneradmin\AppData\Local\
 :: if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1") else (start /wait mambaforge-installer.exe)
