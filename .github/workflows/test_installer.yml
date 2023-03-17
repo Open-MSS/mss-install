@@ -56,11 +56,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install mambaforge+MSS (1/2) (needs new shell to recognise mamba)
+      - name: Install mambaforge+MSS (1/3) (needs new shell to recognise mamba)
         run: |
           cd %GITHUB_WORKSPACE%
           Windows.bat -a
-      - name: Install mambaforge+MSS (2/2)
+      - name: install mamba helper (2/3)
+        run: |
+          cd %GITHUB_WORKSPACE%
+          curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe
+          mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1"
+      - name: Install mambaforge+MSS (3/3)
         run: |
           cd %GITHUB_WORKSPACE%
           set PATH=%PATH%;%USERPROFILE%\mambaforge\mambabin
