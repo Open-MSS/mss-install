@@ -62,7 +62,7 @@ jobs:
       - name: Install mambaforge+MSS (2/2)
         run: |
           cd ${{ github.workspace }}
-          Start-Process .\Windows.bat -a
+          Start-Process .\Windows.bat
       - name: Test MSS installed
         run: |
           mamba activate mssenv
