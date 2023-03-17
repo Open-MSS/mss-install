@@ -62,7 +62,7 @@ jobs:
       - name: Install MSS (2/2)
         run: |
           Set-Location -Path ${{ github.workspace }} -PassThru
-          Windows.bat -a
+          cmd.exe /c .\Windows.bat -a
       - name: Test MSS installed
         run: |
           mamba activate mssenv
