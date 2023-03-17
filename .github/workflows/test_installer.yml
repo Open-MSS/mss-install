@@ -57,7 +57,7 @@ jobs:
       - name: Install mambaforge (1/2)
         run: |
           cd ${{ github.workspace }}
-          curl.exe -fsSL0 mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
+          curl.exe -fsSL0o mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
           Start-Process .\mambaforge.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1"
           /home/runner/AppData/Local/mambaforge/etc/fish/conf.d/conda.fish
           /home/runner/AppData/Local/mambaforge/etc/fish/conf.d/mamba.fish
