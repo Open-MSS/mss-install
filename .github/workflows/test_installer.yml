@@ -60,6 +60,7 @@ jobs:
           cd ${{ github.workspace }}
           curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe;
           Start-Process .\mambaforge-installer.exe -Wait -ArgumentList "/S /RegisterPython=1 /AddToPath=1"
+          mamba init
           mamba info
       - name: Install mambaforge+MSS (2/2)
         run: |
