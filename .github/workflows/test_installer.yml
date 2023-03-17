@@ -47,20 +47,18 @@ jobs:
           sudo /Users/runner/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
           
   install-windows:
-    runs-on: windows:ltsc2019
-    
+    runs-on: windows-latest
     defaults:
       run:
-        shell: cmd
+        shell: pwsh
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Install mambaforge (1/2)
         run: |
-          cd %GITHUB_WORKSPACE%
-          curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe
-          call mambaforge-installer.exe -Wait -ArgumentList "/S /RegisterPython=1 /AddToPath=1"
+          curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe;
+          Start-Process .\mambaforge-installer.exe -Wait -ArgumentList "/S /RegisterPython=1 /AddToPath=1"
       - name: Install mambaforge+MSS (2/2)
         run: |
           cd %GITHUB_WORKSPACE%
