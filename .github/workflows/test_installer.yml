@@ -62,8 +62,8 @@ jobs:
       - name: Install mambaforge+MSS (2/2)
         run: |
           cd ${{ github.workspace }}
-          set PATH=%PATH%;%USERPROFILE%\mambaforge\mambabin
           Start-Process .\Windows.bat -a
       - name: Test MSS installed
         run: |
-          Start-Process .\%USERPROFILE%\mambaforge\mambabin\msui --version | findstr /i /c:"Mission Support System (MSS)"
+          mamba activate mssenv
+          msui --version | findstr /i /c:"Mission Support System (MSS)"
