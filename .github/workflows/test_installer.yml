@@ -47,7 +47,7 @@ jobs:
           sudo /Users/runner/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
           
   install-windows:
-    runs-on: mcr.microsoft.com/windows/servercore:ltsc2019
+    runs-on: windows:ltsc2019
     
     defaults:
       run:
