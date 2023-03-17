@@ -81,11 +81,11 @@ for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
 if %spaceMB% LSS 2899 (echo You need at least 2.7GB of space to install MSS, aborting. & pause & exit /B 1)
-call conda.bat activate mssenv
+call mamba.bat activate mssenv
 if not %errorlevel% == 0 (
     echo mssenv not found, creating...
     call mamba.bat create -n mssenv -y
-    call conda.bat activate mssenv
+    call mamba.bat activate mssenv
     if errorlevel 1 (echo Environment not found, aborting & pause & exit /B 1)
 )
 
