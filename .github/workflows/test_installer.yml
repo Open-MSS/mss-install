@@ -50,25 +50,23 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        shell: pwsh
+        shell: cmd
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Install mambaforge (1/2)
         run: |
-          cd ${{ github.workspace }}
-          curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe;
-          Start-Process .\mambaforge-installer.exe -Wait -ArgumentList "/S /RegisterPython=1 /AddToPath=1"
-          Get-Command Windows.bat
-          Get-Command mamba
-          mamba init
-          mamba info
+          cd %GITHUB_WORKSPACE%
+          curl -L0 https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe;
+          mambaforge-installer.exe -Wait -ArgumentList "/S /RegisterPython=1 /AddToPath=1"
       - name: Install mambaforge+MSS (2/2)
         run: |
-          cd ${{ github.workspace }}
-          .\Windows.bat -a
+          cd %GITHUB_WORKSPACE%
+          dir 
+          where mamba
+          Windows.bat -a
       - name: Test MSS installed
         run: |
-          conda activate mssenv
+          mamba activate mssenv
           msui --version | findstr /i /c:"Mission Support System (MSS)"
