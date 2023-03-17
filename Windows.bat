@@ -71,8 +71,10 @@ if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList 
 del "mambaforge-installer.exe"
 echo "check mambaforge installed"
 dir %USERPROFILE%\mambaforge
+dir %USERPROFILE%
+echo %PATH%
 
-start /i /b %script% %automatic% retry & exit 0
+:: start /i /b %script% %automatic% retry & exit 0
 
 
 :mambainstalled
