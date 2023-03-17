@@ -67,8 +67,13 @@ reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" 
 if %OSBIT%==64BIT curl -L0  https://github.com/conda-forge/miniforge/releases/download/22.9.0-3/Mambaforge-22.9.0-3-Windows-x86_64.exe --output mambaforge-installer.exe
 echo Installing mambaforge (Enable: Register Mambaforge as my default Python and add it to the path
 echo ==============================================================================================
+echo "is the installer downloaded where we are?"
+dir mambaforge-installer.exe
+
+
 mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1"
 
+dir C:\Users\runneradmin\AppData\Local\
 :: if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1") else (start /wait mambaforge-installer.exe)
 del "mambaforge-installer.exe"
 echo "check mambaforge installed"
