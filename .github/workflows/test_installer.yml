@@ -57,7 +57,7 @@ jobs:
       - name: Install mambaforge (1/2)
         run: |
           cd %GITHUB_WORKSPACE%
-          curl -L0 https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe;
+          curl -L0 https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe
           call mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1"
       - name: Install mambaforge+MSS (2/2)
         run: |
