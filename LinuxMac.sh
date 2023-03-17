@@ -27,8 +27,8 @@ echo "Checking Mamba installation..."
 unameOS=$([ "$(uname -s)" == "Darwin" ] && echo "MacOSX" || echo "Linux")
 architectureOS="$(uname -m)"
 if [ "$(uname -m)" == "arm64" ] && [ "$unameOS" == "MacOSX" ]; then echo "Aborting. Mac ARM M1 currently not supported." && exit 1; fi
-completeSize=3
-mssSize=2.7
+completeSize=3.5
+mssSize=1.6
 
 echo "
 We recommend to start from Mambaforge for the MSS installation.
