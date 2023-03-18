@@ -53,7 +53,7 @@ if %errorlevel% == 0 (goto mambainstalled)
 
 
 :installmamba
-wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
+wmic logicaldisk where DeviceID='%USERPROFILE%:~0,2%' get FreeSpace > space.txt
 for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
@@ -67,7 +67,7 @@ if %OSBIT%==64BIT curl -L0  https://github.com/conda-forge/miniforge/releases/la
 echo Installing mambaforge (Enable: Register Mambaforge as my default Python and add it to the path
 echo ==============================================================================================
 
-if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /D=%UserProfile%\mambaforge") else (start /wait mambaforge-installer.exe)
+if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /D=%USERPROFILE%\mambaforge") else (start /wait mambaforge-installer.exe)
 del "mambaforge-installer.exe"
 
 start /i /b %script% %automatic% retry & exit 0
@@ -76,7 +76,7 @@ start /i /b %script% %automatic% retry & exit 0
 :mambainstalled
 echo Mamba installed
 echo ===============
-wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
+wmic logicaldisk where DeviceID='%USERPROFILE%:~0,2%' get FreeSpace > space.txt
 for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
