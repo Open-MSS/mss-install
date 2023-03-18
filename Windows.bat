@@ -63,12 +63,12 @@ echo =========================
 
 if "%retry%"=="retry" (echo Mamba still not found after installation, aborting & pause & exit /B 1)
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OSBIT=32BIT || set OSBIT=64BIT
-if %OSBIT%==64BIT curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge-installer.exe
+if %OSBIT%==64BIT curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge.exe
 echo Installing mambaforge (Enable: Register Mambaforge as my default Python and add it to the path
 echo ==============================================================================================
 
-if "%automatic%"=="a" (start /wait mambaforge-installer.exe -Wait -ArgumentList "/InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\mambaforge") else (start /wait mambaforge-installer.exe)
-del "mambaforge-installer.exe"
+if "%automatic%"=="a" (start /wait "" mambaforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\mambaforge) else (start /wait "" mambaforge-installer.exe)
+del "mambaforge.exe"
 
 start /i /b %script% %automatic% retry & exit 0
 
