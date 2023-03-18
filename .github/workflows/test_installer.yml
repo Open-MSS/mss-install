@@ -42,7 +42,7 @@ jobs:
           sudo script -q -c "./mambaforge.sh -u -b -p ~/mambaforge"
       - name: check mamba info(2/3)
         run: |
-          export PATH=$PATH:$HOME/mambaforge
+          export PATH=$PATH:$HOME/mambaforge/condabin
           mamba info
       - name: Install MSS by LinuxMac.sh -a (3/3)
         run: |
