@@ -68,6 +68,7 @@ echo Installing mambaforge (Enable: Register Mambaforge as my default Python and
 echo ==============================================================================================
 
 if "%automatic%"=="a" (start /wait "" mambaforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\mambaforge) else (start /wait "" mambaforge-installer.exe)
+
 del "mambaforge.exe"
 
 start /i /b %script% %automatic% retry & exit 0
@@ -103,7 +104,7 @@ echo 2. Start msui with this command: "msui"
 
 pause
 
-exit /B 1
+exit /B 0
 
 :showmanualhint
 echo Found a anaconda/miniconda installation see documentation for a manual installation
