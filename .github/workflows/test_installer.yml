@@ -59,6 +59,7 @@ jobs:
           Set-Location -Path ${{ github.workspace }} -PassThru
           curl.exe -fsSL0o mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
           Start-Process .\mambaforge.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1"
+          call mamba info
       - name: Install MSS (2/2)
         run: |
           Set-Location -Path ${{ github.workspace }} -PassThru
