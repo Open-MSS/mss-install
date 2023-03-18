@@ -54,11 +54,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install conda+MSS (1/2) (needs new shell to recognise conda)
+      - name: Install mambaforge+MSS (1/2) (needs new shell to recognise conda)
         run: |
           cd %GITHUB_WORKSPACE%
           Windows.bat -a
-      - name: Install conda+MSS (2/2)
+      - name: Install mambaforge+MSS (2/2)
         run: |
           cd %GITHUB_WORKSPACE%
           set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
@@ -96,11 +96,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install mambaforge by curl(1/2)
+      - name: Install mambaforge by curl(1/4)
         run: |
           curl.exe -fsSLo mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
           start /wait "" mambaforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\mambaforge
-      - name: check mamba info(2/2)
+      - name: check mamba info(2/4)
         run: |
           set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
           mamba info
+      - name: Install MSS by  Windows.bat -a (3/4)
+        run: |
+          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
+          Windows.bat -a
+      - name: Test MSS installed (4/4)
+        run: |
+          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
+          call conda.bat activate mssenv
+          msui --version | findstr /i /c:"Mission Support System (MSS)"
+
+          
+          
