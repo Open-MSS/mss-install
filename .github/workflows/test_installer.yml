@@ -70,7 +70,7 @@ jobs:
           msui --version | findstr /i /c:"Mission Support System (MSS)"
           
 
-  install-mamba-on-windows:
+  install-mamba-on-windows-pwsh:
     runs-on: windows-latest
     defaults:
       run:
@@ -81,9 +81,26 @@ jobs:
       - name: Install mambaforge by curl(1/2)
         run: |
           curl.exe -fsSLo mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
-          Start-Process .\mambaforge.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /D=$($env:USERPROFILE)\mambaforge"
+          Start-Process .\mambaforge.exe -Wait -ArgumentList "/InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=$($env:USERPROFILE)\mambaforge"
 
       - name: check mamba info(2/2)
         run: |
           $env:Path += ";$($env:USERPROFILE)\mambaforge\condabin"
+          mamba info
+
+  install-mamba-on-windows-cmd:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: cmd
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install mambaforge by curl(1/2)
+        run: |
+          curl.exe -fsSLo mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
+          start /wait "" mambaforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%UserProfile%\mambaforge
+      - name: check mamba info(2/2)
+        run: |
+          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
           mamba info
