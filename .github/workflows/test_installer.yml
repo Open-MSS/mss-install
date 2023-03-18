@@ -68,3 +68,22 @@ jobs:
           set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
           call conda.bat activate mssenv
           msui --version | findstr /i /c:"Mission Support System (MSS)"
+          
+
+  install-mamba-on-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install mambaforge (1/2)
+        run: |
+          cd %GITHUB_WORKSPACE%
+          curl.exe -fsSLo mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
+          Start-Process .\mambaforge.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /D=%UserProfile%\mambaforge"
+        run: |
+          cd %GITHUB_WORKSPACE%
+          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
+          mamba info
