@@ -25,6 +25,34 @@ jobs:
       - name: Test MSS installed
         run: |
           sudo /root/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
+
+  install-mss-on-existing-linux-mambaforge-installation:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install mambaforge by curl(1/3)
+        run: |
+          sudo curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" --output mambaforge.sh
+          sudo chmod +x mambaforge.sh
+          sudo script -q -c "./mambaforge.sh -u -b -p ~/mambaforge"
+          sudo mamba init
+      - name: check mamba info(2/3)
+        run: |
+          mamba info
+      - name: Install MSS by LinuxMac.sh -a (3/3)
+        run: |
+          cd $GITHUB_WORKSPACE
+          chmod +x LinuxMac.sh
+          sudo ./LinuxMac.sh -a
+      - name: Test MSS installed
+        run: |
+          sudo /root/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
+          
     
   install-mss-on-macos-from-scratch:
     runs-on: macos-latest
@@ -104,7 +132,7 @@ jobs:
         run: |
           set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
           mamba info
-      - name: Install MSS by  Windows.bat -a (3/3)
+      - name: Install MSS by Windows.bat -a (3/3)
         run: |
           set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
           Windows.bat -a
