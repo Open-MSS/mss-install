@@ -53,7 +53,7 @@ if %errorlevel% == 0 (goto mambainstalled)
 
 
 :installmamba
-wmic logicaldisk where DeviceID='%USERPROFILE%:~0,2%' get FreeSpace > space.txt
+wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
 for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
@@ -76,7 +76,7 @@ start /i /b %script% %automatic% retry & exit 0
 :mambainstalled
 echo Mamba installed
 echo ===============
-wmic logicaldisk where DeviceID='%USERPROFILE%:~0,2%' get FreeSpace > space.txt
+wmic logicaldisk where DeviceID='%USERPROFILE:~0,2%' get FreeSpace > space.txt
 for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
