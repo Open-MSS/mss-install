@@ -80,12 +80,10 @@ jobs:
 
       - name: Install mambaforge by curl(1/2)
         run: |
-          cd %GITHUB_WORKSPACE%
           curl.exe -fsSLo mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
           Start-Process .\mambaforge.exe -Wait -ArgumentList "/S /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /D=%USERPROFILE%\mambaforge"
 
       - name: check mamba info(2/2)
         run: |
-          cd %GITHUB_WORKSPACE%
           set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
           mamba info
