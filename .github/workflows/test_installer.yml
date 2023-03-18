@@ -85,5 +85,5 @@ jobs:
 
       - name: check mamba info(2/2)
         run: |
-          set PATH=%PATH%;$($env:USERPROFILE)\mambaforge\condabin
+          $env:Path += ";$($env:USERPROFILE)\mambaforge\condabin"
           mamba info
