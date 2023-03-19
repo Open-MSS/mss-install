@@ -44,7 +44,8 @@ jobs:
           conda init
       - name: check mamba info(2/3)
         run: |
-          bash mamba info
+          bash
+          mamba info
       - name: Install MSS by LinuxMac.sh -a (3/3)
         run: |
           cd $GITHUB_WORKSPACE
