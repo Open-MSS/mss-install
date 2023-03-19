@@ -23,7 +23,7 @@
 #   limitations under the License.
 set -euo pipefail
 automatic="No"
-while [ "$#" == 1]
+while [[ "$#" == 1 ]]
 do
     automatic=$({ [ "$1" = "a" ] || [ "$1" = "-a" ]; } && echo "Yes" || echo "No")
 done
@@ -64,7 +64,7 @@ which mamba || { echo "Downloading mambaforge..." &&
        else
           freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') 
     fi &&
-    if [ $freespace -lt $completeSize ]; then
+    if [[ $freespace -lt $completeSize ]]; then
 	    echo "Aborting. You need at least $completeSize GB of space to install mamba and MSS" && exit 1;
     fi &&
    curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" --output mambaforge-installer.sh &&
@@ -91,11 +91,11 @@ echo "mamba installed"
        else
           freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') 
     fi &&
-    if [ $freespace -lt $mssSize ]; then
+    if [[ $freespace -lt $mssSize ]]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
-    . $HOME/mambaforge/etc/profile.d/conda.sh &&
-    . $HOME/mambaforge/etc/profile.d/mamba.sh &&
+    . "$HOME/mambaforge/etc/profile.d/conda.sh" &&
+    . "$HOME/mambaforge/etc/profile.d/mamba.sh" &&
     mamba init &&
     mamba update -n base mamba && # update mamba to the newest version
     mamba activate mssenv || {
