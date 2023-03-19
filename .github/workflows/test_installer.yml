@@ -90,7 +90,7 @@ jobs:
         run: |
           curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-x86_64.sh" --output mambaforge.sh
           chmod +x mambaforge.sh
-          script -q -c "./mambaforge.sh -u -b -p ~/mambaforge"
+          script -q output.txt ./mambaforge-installer.sh -u -b -p ~/mambaforge
           eval "$(/Users/runner/mambaforge/bin/conda shell.bash hook)"
           mamba init
       - name: check mamba info(2/3)
