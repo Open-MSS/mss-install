@@ -31,7 +31,7 @@ echo Mambaforge comes with the popular conda-forge channel preconfigured,
 echo but you can modify the configuration to use any channel you like.
 echo The next steps are to check for an existing Installation.
 echo If possible we try to:
-echo install MambaForge then Create a mssenv then Install MSS.
+echo install MambaForge including mamba then Create a mssenv then Install MSS.
 
 
 echo Checking existing Anaconda/Miniconda installs not in path...
@@ -82,6 +82,7 @@ for /f "delims= " %%i in ('type space.txt') do set space=%%i
 del space.txt
 set "spaceMB=%space:~,-6%"
 if %spaceMB% LSS 2899 (echo You need at least 2.7GB of space to install MSS, aborting. & pause & exit /B 1)
+call mamba.bat update -n base mamba && :: update mamba to the newest version
 call mamba.bat activate mssenv
 if not %errorlevel% == 0 (
     echo mssenv not found, creating...

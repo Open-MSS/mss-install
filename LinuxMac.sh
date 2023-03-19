@@ -39,7 +39,7 @@ The next steps are to check for an existing Mambaforge Installation.
 
 If possible we try to:
 
-install MambaForge then Create a mssenv then Install MSS.
+install MambaForge including mamba then Create a mssenv then Install MSS.
 "
 
 CHECKCONDA=$(which conda)
@@ -93,6 +93,7 @@ echo "mamba installed"
     . $HOME/mambaforge/etc/profile.d/conda.sh &&
     . $HOME/mambaforge/etc/profile.d/mamba.sh &&
     mamba init &&
+    mamba update -n base mamba && # update mamba to the newest version
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
     mamba create -n mssenv -y &&
