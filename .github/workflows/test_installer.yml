@@ -1,9 +1,11 @@
-name: Check Installer
+name: Check Installer (scheduled)
 
 on:
   push:
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '30 5 * * 1'
 
 jobs:
   install-mss-on-linux-from-scratch:
