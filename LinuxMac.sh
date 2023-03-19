@@ -27,8 +27,8 @@ echo "Checking Mamba installation..."
 unameOS=$([ "$(uname -s)" == "Darwin" ] && echo "MacOSX" || echo "Linux")
 architectureOS="$(uname -m)"
 if [ "$(uname -m)" == "arm64" ] && [ "$unameOS" == "MacOSX" ]; then echo "Aborting. Mac ARM M1 currently not supported." && exit 1; fi
-completeSize=3.5
-mssSize=1.6
+completeSize=4 # integer
+mssSize=2 # integer
 
 echo "
 We recommend to start from Mambaforge for the MSS installation.
@@ -90,6 +90,7 @@ echo "mamba installed"
     if [ $freespace -lt $mssSize ]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
+    eval "$($HOME/mambaforge/bin/conda shell.bash hook)" # make sure that the hook is available
     mamba init
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
