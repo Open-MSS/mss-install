@@ -47,9 +47,11 @@ jobs:
           mamba init
       - name: check mamba info(2/3)
         run: |
+          eval "$(/home/runner/mambaforge/bin/conda shell.bash hook)"
           mamba info
       - name: Install MSS by LinuxMac.sh -a (3/3)
         run: |
+          eval "$(/home/runner/mambaforge/bin/conda shell.bash hook)"
           cd $GITHUB_WORKSPACE
           chmod +x LinuxMac.sh
           ./LinuxMac.sh -a
