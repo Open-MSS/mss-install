@@ -23,10 +23,9 @@
 #   limitations under the License.
 set -euo pipefail
 automatic="No"
-while [[ "$#" == 1 ]]
-do
+if [[ "$#" == 1 ]]; then
     automatic=$({ [ "$1" = "a" ] || [ "$1" = "-a" ]; } && echo "Yes" || echo "No")
-done
+fi
 echo "Checking Mamba installation..."
 unameOS=$([ "$(uname -s)" == "Darwin" ] && echo "MacOSX" || echo "Linux")
 architectureOS="$(uname -m)"
