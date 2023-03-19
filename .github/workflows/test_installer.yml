@@ -44,7 +44,7 @@ jobs:
           conda init
       - name: check mamba info(2/3)
         run: |
-          bash
+          . .bashrc
           mamba info
       - name: Install MSS by LinuxMac.sh -a (3/3)
         run: |
