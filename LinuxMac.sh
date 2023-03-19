@@ -90,7 +90,7 @@ echo "mamba installed"
     if [ $freespace -lt $mssSize ]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
-    eval "$($HOME/mambaforge/bin/conda shell.bash hook)" # make sure that the hook is available
+    eval "$($location/bin/conda shell.bash hook)" # make sure that the hook is available
     mamba init
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
