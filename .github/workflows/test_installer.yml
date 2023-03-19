@@ -41,6 +41,7 @@ jobs:
           chmod +x mambaforge.sh
           script -q -c "./mambaforge.sh -u -b -p ~/mambaforge"
           eval "$(/home/runner/mambaforge/bin/conda shell.bash hook)"
+          mamba init
       - name: check mamba info(2/3)
         run: |
           /home/runner/mambaforge/bin/mamba info
