@@ -22,7 +22,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 set -euo pipefail
-automatic=$({ [ "$1" = "a" ] || [ "$1" = "-a" ]; } && echo "Yes" || echo "No")
+automatic="No"
+while [ "$#" == 1]
+do
+    automatic=$({ [ "$1" = "a" ] || [ "$1" = "-a" ]; } && echo "Yes" || echo "No")
+done
 echo "Checking Mamba installation..."
 unameOS=$([ "$(uname -s)" == "Darwin" ] && echo "MacOSX" || echo "Linux")
 architectureOS="$(uname -m)"
