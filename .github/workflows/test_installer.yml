@@ -40,6 +40,7 @@ jobs:
           sudo curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh" --output mambaforge.sh
           sudo chmod +x mambaforge.sh
           sudo script -q -c "./mambaforge.sh -u -b -p ~/mambaforge"
+          sudo eval "$(/root/mambaforge/bin/conda shell.bash hook)"
       - name: check mamba info(2/3)
         run: |
           sudo /root/mambaforge/bin/mamba info
