@@ -40,7 +40,7 @@ jobs:
           curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh" --output mambaforge.sh
           chmod +x mambaforge.sh
           script -q -c "./mambaforge.sh -u -b -p ~/mambaforge"
-          eval "$(/home/runner/mambaforge/bin/conda shell.bash hook)"
+          eval "$(/home/runner/mambaforge/bin/mamba shell.bash hook)"
       - name: check mamba info(2/3)
         run: |
           /home/runner/mambaforge/bin/mamba info
@@ -66,13 +66,13 @@ jobs:
 
       - name: Install mambaforge+MSS
         run: |
-          sudo rm -rf $(which mamba)
+          rm -rf $(which mamba)
           cd $GITHUB_WORKSPACE
           chmod +x LinuxMac.sh
-          sudo ./LinuxMac.sh -a
+          ./LinuxMac.sh -a
       - name: Test MSS installed
         run: |
-          sudo /Users/runner/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
+          /Users/runner/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
           
   install-mss-on-windows-from-scratch:
     runs-on: windows-latest
