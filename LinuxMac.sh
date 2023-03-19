@@ -90,8 +90,8 @@ echo "mamba installed"
     if [ $freespace -lt $mssSize ]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
-    . "$HOME/.bashrc"
-    mamba init
+    . "$HOME/.bashrc" &&
+    mamba init &&
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
     mamba create -n mssenv -y &&
