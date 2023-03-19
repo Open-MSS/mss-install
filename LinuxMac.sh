@@ -60,7 +60,7 @@ which mamba || { echo "Downloading mambaforge..." &&
        else
           freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') 
     fi &&
-    if ($freespace < $completeSize); then
+    if [ $freespace -lt $completeSize ]; then
 	    echo "Aborting. You need at least $completeSize GB of space to install mamba and MSS" && exit 1;
     fi &&
    curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" --output mambaforge-installer.sh &&
@@ -87,9 +87,10 @@ echo "mamba installed"
        else
           freespace=$(df -BG --output='avail' . | tail -1 | awk '{print $1+0}') 
     fi &&
-    if ($freespace < $mssSize); then
+    if [ $freespace -lt $mssSize ]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
+    mamba init
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
     mamba create -n mssenv -y &&
