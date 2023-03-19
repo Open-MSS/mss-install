@@ -40,7 +40,7 @@ jobs:
           curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh" --output mambaforge.sh
           chmod +x mambaforge.sh
           script -q -c "./mambaforge.sh -u -b -p ~/mambaforge"
-          eval "$(/home/runner/mambaforge/bin/mamba shell.bash hook)"
+          eval "$(/home/runner/mambaforge/bin/conda shell.bash hook)"
       - name: check mamba info(2/3)
         run: |
           /home/runner/mambaforge/bin/mamba info
