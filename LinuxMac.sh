@@ -90,7 +90,8 @@ echo "mamba installed"
     if [ $freespace -lt $mssSize ]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
-    if [[ "$location" != "" ]]; then . "$location/etc/profile.d/conda.sh" && . "$location/etc/profile.d/mamba.sh"; else . "$HOME/.bashrc"; fi && mamba init &&
+    . "$HOME/.bashrc"
+    mamba init
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
     mamba create -n mssenv -y &&
