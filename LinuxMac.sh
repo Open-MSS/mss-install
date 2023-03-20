@@ -100,7 +100,7 @@ echo "mamba installed"
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
     mamba create -n mssenv -y &&
-    mamba activate mssenv || { echo "Environment not found, aborting"; exit 1; }
+    mamba activate mssenv || { echo "'mssenv' environment could not be created, aborting"; exit 1; }
 }
 
  echo "Installing MSS..."
