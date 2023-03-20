@@ -29,7 +29,8 @@ jobs:
       - name: Test MSS installed in activated env
         run: |
           /home/runner/mambaforge/bin/mamba activate mssenv
-          msui --version | grep "Mission Support System (MSS)"
+          # sudo because shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+          sudo msui --version | grep "Mission Support System (MSS)"
           
 
   install-mss-on-existing-linux-mambaforge-installation:
