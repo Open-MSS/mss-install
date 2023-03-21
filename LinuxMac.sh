@@ -105,6 +105,7 @@ echo "mamba installed"
 
  echo "Installing MSS..."
  mamba install mss python -y
+ mamba clean --all -y
  mamba list -f mss | grep "conda-forge" || { echo "MSS was not successfully installed, aborting"; exit 1; }
  echo "To start msui from the MSS Software,"
  echo "1. Activate your mamba environment with this command: 'mamba activate mssenv'"

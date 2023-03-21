@@ -95,6 +95,7 @@ if not %errorlevel% == 0 (
 echo Installing MSS...
 echo =================
 call mamba install mss python -y
+call mamba clean --all -y
 call mamba list -f mss| findstr /i /e "conda-forge"
 if not %errorlevel% == 0 (echo MSS was not successfully installed, aborting & pause & exit /B 1)
 
