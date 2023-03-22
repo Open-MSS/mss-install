@@ -45,10 +45,19 @@ If possible we try to:
 install MambaForge including mamba then Create a mssenv then Install MSS.
 "
 
-CHECKCONDA=$(which conda)
-if [[ $CHECKCONDA == *"miniconda"* ]] || [[ $CHECKCONDA == *"anaconda"* ]]; then
- echo "Found a anaconda/miniconda installation see documentation for a manual installation";
- exit 1;
+sleep 2
+echo "..."
+echo "Checking for a miniconda or anaconda based installation"
+
+if command -v conda  &> /dev/null
+then
+    CHECKCONDA=$(which conda)
+    if [[ $CHECKCONDA == *"miniconda"* ]] || [[ $CHECKCONDA == *"anaconda"* ]]; then
+       echo "Found a anaconda/miniconda installation see documentation for a manual installation";
+       exit 1;
+    fi
+else
+     echo "You start from scratch. Not an old conda based installation found."
 fi
 
 
@@ -78,7 +87,7 @@ which mamba || { echo "Downloading mambaforge..." &&
       if [[ $automatic  = "No" ]]; then script -q -c "./mambaforge-installer.sh -u" output.txt; else script -q -c "./mambaforge-installer.sh -u -b -p ~/mambaforge" output.txt; fi
    fi && cat output.txt &&
    location=$(< output.txt grep "PREFIX=" | tr -d "[:cntrl:]" | sed -e "s/.*PREFIX=//g") && rm output.txt &&
-   if [[ "$location" != "" ]]; then . "$location/etc/profile.d/conda.sh" && . "$location/etc/profile.d/mamba.sh"; else . "$HOME/.bashrc"; fi && mamba init &&
+   if [[ "$location" != "" ]]; then . "$location/etc/profile.d/conda.sh" && . "$location/etc/profile.d/mamba.sh" & export PATH="$location/bin:$PATH" &&  mamba init; else . "$HOME/.bashrc"; fi
    if [[ "$SHELL" = *zsh ]]; then conda init zsh; fi && rm mambaforge-installer.sh &&
    which mamba || { echo "mamba still not found, please restart your console and try again"; exit 1; }
 }
@@ -96,7 +105,7 @@ echo "mamba installed"
     . "$HOME/mambaforge/etc/profile.d/conda.sh" &&
     . "$HOME/mambaforge/etc/profile.d/mamba.sh" &&
     mamba init &&
-    mamba update -n base mamba && # update mamba to the newest version
+    mamba update -n base mamba -y && # update mamba to the newest version
     mamba activate mssenv || {
     echo "mssenv not found, creating..." &&
     mamba create -n mssenv -y &&
