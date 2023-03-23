@@ -114,6 +114,7 @@ echo "mamba installed"
 
  echo "Installing MSS..."
  mamba install mss python -y
+ "$HOME/mambaforge/bin/conda" init
  mamba clean --all -y
  mamba list -f mss | grep "conda-forge" || { echo "MSS was not successfully installed, aborting"; exit 1; }
  echo "To start msui from the MSS Software,"
