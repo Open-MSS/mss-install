@@ -16,26 +16,26 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Install mambaforge+MSS
+      - name: Install miniforge+MSS
         run: |
           cd $GITHUB_WORKSPACE
           chmod +x LinuxMac.sh
           ./LinuxMac.sh -a
       - name: Test MSS installed by direct call
         run: |
-          /home/runner/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
+          /home/runner/miniforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
       - name: Test MSS installed in activated env
         run: |
-          . /home/runner/mambaforge/etc/profile.d/conda.sh
-          . /home/runner/mambaforge/etc/profile.d/mamba.sh
+          . /home/runner/miniforge/etc/profile.d/conda.sh
+          . /home/runner/miniforge/etc/profile.d/mamba.sh
           mamba init
           mamba activate mssenv
           msui --version | grep "Mission Support System (MSS)"
           
 
-  install-mss-on-existing-linux-mambaforge-installation:
+  install-mss-on-existing-linux-miniforge-installation:
     runs-on: ubuntu-latest
 
     defaults:
@@ -43,27 +43,27 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install mambaforge by curl(1/3)
+      - uses: actions/checkout@v4
+      - name: Install miniforge by curl(1/3)
         run: |
-          curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh" --output mambaforge.sh
-          chmod +x mambaforge.sh
-          script -q -c "./mambaforge.sh -u -b -p ~/mambaforge"
-          eval "$(/home/runner/mambaforge/bin/conda shell.bash hook)"
+          curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh" --output miniforge.sh
+          chmod +x miniforge.sh
+          script -q -c "./miniforge.sh -u -b -p ~/miniforge"
+          eval "$(/home/runner/miniforge/bin/conda shell.bash hook)"
           mamba init
       - name: check mamba info(2/3)
         run: |
-          eval "$(/home/runner/mambaforge/bin/conda shell.bash hook)"
+          eval "$(/home/runner/miniforge/bin/conda shell.bash hook)"
           mamba info
       - name: Install MSS by LinuxMac.sh -a (3/3)
         run: |
-          eval "$(/home/runner/mambaforge/bin/conda shell.bash hook)"
+          eval "$(/home/runner/miniforge/bin/conda shell.bash hook)"
           cd $GITHUB_WORKSPACE
           chmod +x LinuxMac.sh
           ./LinuxMac.sh -a
       - name: Test MSS installed
         run: |
-          /home/runner/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
+          /home/runner/miniforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
           
     
   install-mss-on-macos-from-scratch:
@@ -74,18 +74,18 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Install mambaforge+MSS
+      - name: Install miniforge+MSS
         run: |
           cd $GITHUB_WORKSPACE
           chmod +x LinuxMac.sh
           ./LinuxMac.sh -a
       - name: Test MSS installed
         run: |
-          /Users/runner/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
+          /Users/runner/miniforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
 
-  install-mss-on-existing-macos-mambaforge-installation:
+  install-mss-on-existing-macos-miniforge-installation:
     runs-on: macos-latest
 
     defaults:
@@ -93,27 +93,27 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install mambaforge by curl(1/3)
+      - uses: actions/checkout@v4
+      - name: Install miniforge by curl(1/3)
         run: |
-          curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-x86_64.sh" --output mambaforge.sh
-          chmod +x mambaforge.sh
-          script -q output.txt ./mambaforge.sh -u -b -p ~/mambaforge
-          eval "$(/Users/runner/mambaforge/bin/conda shell.bash hook)"
+          curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh" --output miniforge.sh
+          chmod +x miniforge.sh
+          script -q output.txt ./miniforge.sh -u -b -p ~/miniforge
+          eval "$(/Users/runner/miniforge/bin/conda shell.bash hook)"
           mamba init
       - name: check mamba info(2/3)
         run: |
-          eval "$(/Users/runner/mambaforge/bin/conda shell.bash hook)"
+          eval "$(/Users/runner/miniforge/bin/conda shell.bash hook)"
           mamba info
       - name: Install MSS by LinuxMac.sh -a (3/3)
         run: |
-          eval "$(/Users/runner/mambaforge/bin/conda shell.bash hook)"
+          eval "$(/Users/runner/miniforge/bin/conda shell.bash hook)"
           cd $GITHUB_WORKSPACE
           chmod +x LinuxMac.sh
           ./LinuxMac.sh -a
       - name: Test MSS installed
         run: |
-          /Users/runner/mambaforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
+          /Users/runner/miniforge/envs/mssenv/bin/msui --version | grep "Mission Support System (MSS)"
 
   install-mss-on-windows-from-scratch:
     runs-on: windows-latest
@@ -121,20 +121,20 @@ jobs:
       run:
         shell: cmd
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Install mambaforge+MSS (1/2) (needs new shell to recognise mamba)
+      - name: Install miniforge+MSS (1/2) (needs new shell to recognise mamba)
         run: |
           cd %GITHUB_WORKSPACE%
           Windows.bat -a
-      - name: Install mambaforge+MSS (2/2)
+      - name: Install miniforge+MSS (2/2)
         run: |
           cd %GITHUB_WORKSPACE%
-          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
+          set PATH=%PATH%;%USERPROFILE%\miniforge\condabin
           Windows.bat -a
       - name: Test MSS installed
         run: |
-          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
+          set PATH=%PATH%;%USERPROFILE%\miniforge\condabin
           call conda.bat activate mssenv
           msui --version | findstr /i /c:"Mission Support System (MSS)"
           
@@ -145,19 +145,19 @@ jobs:
       run:
         shell: powershell
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Install mambaforge by curl(1/2)
+      - name: Install miniforge by curl(1/2)
         run: |
-          curl.exe -fsSLo mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
-          Start-Process .\mambaforge.exe -Wait -ArgumentList "/InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=$($env:USERPROFILE)\mambaforge"
+          curl.exe -fsSLo miniforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe
+          Start-Process .\miniforge.exe -Wait -ArgumentList "/InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=$($env:USERPROFILE)\miniforge"
 
       - name: check mamba info(2/2)
         run: |
-          $env:Path += ";$($env:USERPROFILE)\mambaforge\condabin"
+          $env:Path += ";$($env:USERPROFILE)\miniforge\condabin"
           mamba info
 
-  install-mss-on-existing-windows-mambaforge-installation:
+  install-mss-on-existing-windows-miniforge-installation:
     runs-on: windows-latest
     defaults:
       run:
@@ -165,21 +165,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install mambaforge by curl(1/3)
+      - name: Install miniforge by curl(1/3)
         run: |
-          curl.exe -fsSLo mambaforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe
-          start /wait "" mambaforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\mambaforge
+          curl.exe -fsSLo miniforge.exe https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe
+          start /wait "" miniforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\miniforge
       - name: check mamba info(2/3)
         run: |
-          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
+          set PATH=%PATH%;%USERPROFILE%\miniforge\condabin
           mamba info
       - name: Install MSS by Windows.bat -a (3/3)
         run: |
-          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
+          set PATH=%PATH%;%USERPROFILE%\miniforge\condabin
           Windows.bat -a
       - name: Test MSS installed
         run: |
-          set PATH=%PATH%;%USERPROFILE%\mambaforge\condabin
+          set PATH=%PATH%;%USERPROFILE%\miniforge\condabin
           call conda.bat activate mssenv
           msui --version | findstr /i /c:"Mission Support System (MSS)"
 
