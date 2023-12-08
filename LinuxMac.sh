@@ -102,6 +102,10 @@ echo "mamba installed"
     if [[ $freespace -lt $mssSize ]]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
+    
+    echo $HOME
+    ls $HOME
+
     . "$HOME/miniforge3/etc/profile.d/conda.sh" &&
     . "$HOME/miniforge3/etc/profile.d/mamba.sh" &&
     mamba init &&
