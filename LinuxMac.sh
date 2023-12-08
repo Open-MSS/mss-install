@@ -34,15 +34,15 @@ completeSize=4 # integer
 mssSize=2 # integer
 
 echo "
-We recommend to start from Mambaforge for the MSS installation.
+We recommend to start from Miniforge for the MSS installation.
 
-Mambaforge comes with the popular conda-forge channel preconfigured, but you can modify the configuration to use any channel you like.
+Miniforge comes with the popular conda-forge channel preconfigured, but you can modify the configuration to use any channel you like.
 
-The next steps are to check for an existing Mambaforge Installation.
+The next steps are to check for an existing Miniforge Installation.
 
 If possible we try to:
 
-install MambaForge including mamba then Create a mssenv then Install MSS.
+install Miniforge including mamba then Create a mssenv then Install MSS.
 "
 
 sleep 2
@@ -64,8 +64,8 @@ fi
 sleep 2
 
 
-# neither conda nor mamba -> mambaforge
-which mamba || { echo "Downloading mambaforge..." &&
+# neither conda nor mamba -> Miniforge
+which mamba || { echo "Downloading Miniforge..." &&
     if [[ $unameOS = "MacOSX" ]]
        then
           freespace=$(df -g  . |  tail -1 | awk '{print $4+0}')
@@ -75,20 +75,20 @@ which mamba || { echo "Downloading mambaforge..." &&
     if [[ $freespace -lt $completeSize ]]; then
 	    echo "Aborting. You need at least $completeSize GB of space to install mamba and MSS" && exit 1;
     fi &&
-   curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-${unameOS}-${architectureOS}.sh" --output mambaforge-installer.sh &&
-   ls -l mambaforge-installer.sh &&
-   echo "Installing mambaforge..." &&
-   chmod +x mambaforge-installer.sh &&
+   curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-${unameOS}-${architectureOS}.sh" --output miniforge-installer.sh &&
+   ls -l miniforge-installer.sh &&
+   echo "Installing miniforge..." &&
+   chmod +x miniforge-installer.sh &&
 
    if [[ $unameOS = "MacOSX" ]]
    then
-      if [[ $automatic  = "No" ]]; then script -q output.txt ./mambaforge-installer.sh -u; else script -q output.txt ./mambaforge-installer.sh -u -b -p ~/mambaforge; fi
+      if [[ $automatic  = "No" ]]; then script -q output.txt ./miniforge-installer.sh -u; else script -q output.txt ./miniforge-installer.sh -u -b -p ~/Miniforge; fi
    else
-      if [[ $automatic  = "No" ]]; then script -q -c "./mambaforge-installer.sh -u" output.txt; else script -q -c "./mambaforge-installer.sh -u -b -p ~/mambaforge" output.txt; fi
+      if [[ $automatic  = "No" ]]; then script -q -c "./miniforge-installer.sh -u" output.txt; else script -q -c "./miniforge-installer.sh -u -b -p ~/Miniforge" output.txt; fi
    fi && cat output.txt &&
    location=$(< output.txt grep "PREFIX=" | tr -d "[:cntrl:]" | sed -e "s/.*PREFIX=//g") && rm output.txt &&
    if [[ "$location" != "" ]]; then . "$location/etc/profile.d/conda.sh" && . "$location/etc/profile.d/mamba.sh" & export PATH="$location/bin:$PATH" &&  mamba init; else . "$HOME/.bashrc"; fi
-   if [[ "$SHELL" = *zsh ]]; then conda init zsh; fi && rm mambaforge-installer.sh &&
+   if [[ "$SHELL" = *zsh ]]; then conda init zsh; fi && rm miniforge-installer.sh &&
    which mamba || { echo "mamba still not found, please restart your console and try again"; exit 1; }
 }
 
@@ -102,8 +102,8 @@ echo "mamba installed"
     if [[ $freespace -lt $mssSize ]]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
-    . "$HOME/mambaforge/etc/profile.d/conda.sh" &&
-    . "$HOME/mambaforge/etc/profile.d/mamba.sh" &&
+    . "$HOME/Miniforge/etc/profile.d/conda.sh" &&
+    . "$HOME/Miniforge/etc/profile.d/mamba.sh" &&
     mamba init &&
     mamba update -n base mamba -y && # update mamba to the newest version
     mamba activate mssenv || {
@@ -114,7 +114,6 @@ echo "mamba installed"
 
  echo "Installing MSS..."
  mamba install mss python -y
- "$HOME/mambaforge/bin/conda" init
  mamba clean --all -y
  mamba list -f mss | grep "conda-forge" || { echo "MSS was not successfully installed, aborting"; exit 1; }
  echo "To start msui from the MSS Software,"
