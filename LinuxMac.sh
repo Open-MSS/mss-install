@@ -104,10 +104,11 @@ echo "mamba installed"
     fi &&
     
     echo $HOME
-    ls $HOME
+    ls $HOME/Miniforge
+    ls $HOME/Miniforge/etc/profile.d/
 
-    . "$HOME/miniforge3/etc/profile.d/conda.sh" &&
-    . "$HOME/miniforge3/etc/profile.d/mamba.sh" &&
+    . "$HOME/Miniforge/etc/profile.d/conda.sh" &&
+    . "$HOME/Miniforge/etc/profile.d/mamba.sh" &&
     mamba init &&
     mamba update -n base mamba -y && # update mamba to the newest version
     mamba activate mssenv || {
