@@ -62,7 +62,7 @@ if %OSBIT%==64BIT curl -L0 https://github.com/conda-forge/miniforge/releases/lat
 echo Installing miniforge (Enable: Register miniforge as my default Python and add it to the path
 echo ==============================================================================================
 
-if "%automatic%"=="a" (start /wait "" miniforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\miniforge) else (start /wait "" miniforge-installer.exe)
+if "%automatic%"=="a" (start /wait "" miniforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\miniforge) else (start /wait "" miniforge.exe)
 
 del "miniforge.exe"
 
