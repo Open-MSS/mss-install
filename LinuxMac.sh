@@ -104,8 +104,8 @@ echo "mamba installed"
     fi &&
     
     echo $HOME
-    ls $HOME/Miniforge
-    ls $HOME/Miniforge/etc/profile.d/
+    ls -R $HOME/Miniforge
+
 
     . "$HOME/Miniforge/etc/profile.d/conda.sh" &&
     . "$HOME/Miniforge/etc/profile.d/mamba.sh" &&
