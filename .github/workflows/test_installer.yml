@@ -48,7 +48,7 @@ jobs:
         run: |
           curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh" --output miniforge.sh
           chmod +x miniforge.sh
-          script -q -c "./miniforge.sh -u -b -p ~/miniforge"
+          script -q -c "./miniforge.sh -u -b -p ~/Miniforge"
           eval "$(/home/runner/Miniforge/bin/conda shell.bash hook)"
           mamba init
       - name: check mamba info(2/3)
@@ -98,7 +98,7 @@ jobs:
         run: |
           curl -L0 "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh" --output miniforge.sh
           chmod +x miniforge.sh
-          script -q output.txt ./miniforge.sh -u -b -p ~/miniforge
+          script -q output.txt ./miniforge.sh -u -b -p -p ~/Miniforge
           eval "$(/Users/runner/Miniforge/bin/conda shell.bash hook)"
           mamba init
       - name: check mamba info(2/3)
