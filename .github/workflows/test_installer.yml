@@ -29,7 +29,7 @@ jobs:
       - name: Test MSS installed in activated env
         run: |
           . /home/runner/Miniforge/etc/profile.d/conda.sh
-          . /home/runner/Minitforge/etc/profile.d/mamba.sh
+          . /home/runner/Miniforge/etc/profile.d/mamba.sh
           mamba init
           mamba activate mssenv
           msui --version | grep "Mission Support System (MSS)"
