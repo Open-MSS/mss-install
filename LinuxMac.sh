@@ -102,11 +102,7 @@ echo "mamba installed"
     if [[ $freespace -lt $mssSize ]]; then
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
-    
     echo $HOME
-    ls -R $HOME/Miniforge
-
-
     . "$HOME/Miniforge/etc/profile.d/conda.sh" &&
     . "$HOME/Miniforge/etc/profile.d/mamba.sh" &&
     mamba init &&
@@ -118,7 +114,7 @@ echo "mamba installed"
 }
 
  echo "Installing MSS..."
- mamba install mss python -y
+ mamba --no-plugins install mss python -y
  mamba clean --all -y
  mamba list -f mss | grep "conda-forge" || { echo "MSS was not successfully installed, aborting"; exit 1; }
  echo "To start msui from the MSS Software,"
