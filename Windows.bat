@@ -58,7 +58,7 @@ echo =========================
 
 if "%retry%"=="retry" (echo Mamba still not found after installation, aborting & pause & exit /B 1)
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OSBIT=32BIT || set OSBIT=64BIT
-if %OSBIT%==64BIT curl -L0 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe --output miniforge.exe
+if %OSBIT%==64BIT curl -k -L0 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe --output miniforge.exe
 echo Installing miniforge (Enable: Register miniforge as my default Python and add it to the path
 echo ==============================================================================================
 
