@@ -26,12 +26,12 @@ if "%1"=="a" (set automatic=a) else (if "%1"=="-a" (set automatic=a) else (set a
 if "%2"=="retry" (set retry=retry) else (set retry=No)
 set script=%~f0
 
-echo We recommend to start from Mambaforge for the MSS installation.
-echo Mambaforge comes with the popular conda-forge channel preconfigured,
+echo We recommend to start from miniforge for the MSS installation.
+echo miniforge comes with the popular conda-forge channel preconfigured,
 echo but you can modify the configuration to use any channel you like.
 echo The next steps are to check for an existing Installation.
 echo If possible we try to:
-echo install MambaForge including mamba then Create a mssenv then Install MSS.
+echo install Miniforge including mamba then Create a mssenv then Install MSS.
 
 
 echo Checking existing Anaconda/Miniconda installs not in path...
@@ -53,18 +53,18 @@ if %errorlevel% == 0 (goto mambainstalled)
 
 :installmamba
 wmic LogicalDisk where "DeviceID='%USERPROFILE:~0,2%' and FreeSpace > 4000" get FreeSpace 2>&1 >nul || (echo You need at least 4GB of space to install mamba and MSS, aborting. & pause & exit /B 1)
-echo Downloading mambaforge...
+echo Downloading miniforge...
 echo =========================
 
-if "%retry%"=="retry" (echo Mamba still not found after installation, aborting & pause & exit /B 1)
+if "%retry%"=="retry" (echo Mamba still not found after installation, do start a new miniforge shell and do try again, aborting & pause & exit /B 1)
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OSBIT=32BIT || set OSBIT=64BIT
-if %OSBIT%==64BIT curl -L0  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Windows-x86_64.exe --output mambaforge.exe
-echo Installing mambaforge (Enable: Register Mambaforge as my default Python and add it to the path
+if %OSBIT%==64BIT curl -k -L0 https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe --output miniforge.exe
+echo Installing miniforge (Enable: Register miniforge as my default Python and add it to the path
 echo ==============================================================================================
 
-if "%automatic%"=="a" (start /wait "" mambaforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\mambaforge) else (start /wait "" mambaforge.exe)
+if "%automatic%"=="a" (start /wait "" miniforge.exe /InstallationType=JustMe /RegisterPython=1 /AddToPath=1 /S /D=%USERPROFILE%\miniforge) else (start /wait "" miniforge-installer.exe)
 
-del "mambaforge.exe"
+del "miniforge.exe"
 
 start /i /b %script% %automatic% retry & exit 0
 
