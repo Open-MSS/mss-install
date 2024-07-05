@@ -103,8 +103,8 @@ echo "mamba installed"
             echo "Aborting. You need at least $mssSize GB of space to install mamba and MSS" && exit 1;
     fi &&
     echo $HOME
-    . "$HOME/Miniforge/etc/profile.d/conda.sh" &&
-    . "$HOME/Miniforge/etc/profile.d/mamba.sh" &&
+    . "$HOME/miniforge3/etc/profile.d/conda.sh" &&
+    . "$HOME/miniforge3/etc/profile.d/mamba.sh" &&
     mamba init &&
     mamba update -n base mamba -y && # update mamba to the newest version
     mamba activate mssenv || {
